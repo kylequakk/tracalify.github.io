@@ -1,0 +1,1 @@
+package com.caltracker.model; public class User { private Long id; private String email; private String password; // hashed private String username; // getters + setters

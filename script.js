@@ -63,7 +63,7 @@ console.log("Script is working");
     });
 
 document.getElementById('scanBtn').addEventListener('click', async () => {
-    console.log("Button clicked);
+    console.log("Button clicked");
     const fileInput = document.getElementById('cameraInput');
 
     if (fileInput.files.length === 0) {
@@ -94,3 +94,95 @@ document.getElementById('scanBtn').addEventListener('click', async () => {
         alert("Something went wrong communicating with the server.");
     }
 });
+
+async function signup() {
+    const email = document.getElementById("email").value;
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    const response = await fetch("http://localhost:8080/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, username, password })
+    });
+
+    const text = await response.text();
+    console.log(text);
+}
+
+// ------------------ SIGNUP ------------------
+async function signup() {
+    const email = document.getElementById("signupEmail").value;
+    const username = document.getElementById("signupUsername").value;
+    const password = document.getElementById("signupPassword").value;
+
+    const response = await fetch("http://localhost:8080/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, username, password })
+    });
+
+    console.log(await response.text());
+}
+
+// ------------------ LOGIN ------------------
+async function login() {
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+
+    const response = await fetch("http://localhost:8080/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+    });
+
+    console.log(await response.text());
+}
+
+// ------------------ IMAGE ANALYZE ------------------
+document.getElementById("uploadBtn").addEventListener("click", async () => {
+    const file = document.getElementById("imageInput").files[0];
+
+    if (!file) {
+        alert("Please select an image first");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const response = await fetch("http://localhost:8080/api/analyze", {
+        method: "POST",
+        body: formData
+    });
+
+    const data = await response.json();
+    console.log(data);
+});
+
+async function signup() {
+    const email = document.getElementById("signupEmail").value;
+    const username = document.getElementById("signupUsername").value;
+    const password = document.getElementById("signupPassword").value;
+
+    const response = await fetch("http://localhost:8080/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, username, password })
+    });
+
+    console.log(await response.text());
+}
+
+async function login() {
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+
+    const response = await fetch("http://localhost:8080/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+    });
+
+    console.log(await response.text());
+}
