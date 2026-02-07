@@ -106,6 +106,7 @@
         formData.append("file", file);
 
         try {
+            console.log("Connecting");
             const response = await fetch("http://localhost:8080/api/meals/analyze", {
                 method: "POST",
                 body: formData
