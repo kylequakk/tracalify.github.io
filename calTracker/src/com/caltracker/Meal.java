@@ -21,6 +21,7 @@ public class Meal {
     /*--------------------------------------------------------
         Meal Constructor returns all @params listed below
         @param int id returns database id of user
+        id cannot be < 0; @throws IdAllocationException
         @param String userName returns name of user
         @param String mealName returns name of meal
         @param double calories returns number of calories
@@ -35,9 +36,6 @@ public class Meal {
     public Meal(int id, String userName, String mealName,
                 double calories, double proteins, double carbohydrates,
                 double fibers, double fats, double sugars, Date timeStamp) {
-        //Check for null or empty
-
-
         //Set default values
         this.id = id;
         this.userName = userName;
