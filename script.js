@@ -1,4 +1,5 @@
 document.getElementById('scanBtn').addEventListener('click', async () => {
+    console.log("Button clicked);
     const fileInput = document.getElementById('cameraInput');
 
     if (fileInput.files.length === 0) {
