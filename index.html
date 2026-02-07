@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
     <style>
-        /* 1. THE SLAM LOADER (UNTOUCHED) */
+        /* 1. THE SLAM LOADER */
         #loader-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: 9999; background: #034732;
@@ -66,7 +66,7 @@
             100% { border-radius: 30% 70% 70% 30% / 50% 30% 70% 50%; }
         }
 
-        /* 4. HEADER (APP-OPTIMIZED) */
+        /* 4. HEADER */
         header {
             position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
             background: rgba(3, 71, 50, 0.85); backdrop-filter: blur(20px);
@@ -77,7 +77,7 @@
         @keyframes headerDrop { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
         /* 5. MAIN CONTENT */
-        .home-layout { display: flex; flex-grow: 1; justify-content: center; align-items: center; width: 100%; padding: 40px 20px; position: relative; z-index: 10; }
+        .home-layout { display: flex; flex-grow: 1; justify-content: center; align-items: center; width: 100%; padding: 40px 20px; position: relative; z-index: 10; box-sizing: border-box; }
         .home-box {
             width: 100%; max-width: 500px; background: rgba(3, 71, 50, 0.88);
             padding: 5rem 4rem; color: white; text-align: center;
@@ -110,6 +110,7 @@
             border: 1px solid rgba(255,255,255,0.3); font-size: 0.85rem;
             font-weight: 700; color: #CBE896; pointer-events: none;
             text-transform: uppercase; animation: floatPill 5s ease-in-out infinite alternate; z-index: 20;
+            white-space: nowrap;
         }
         @keyframes floatPill { from { transform: translate(0,0); } to { transform: translate(15px, 25px); } }
 
@@ -117,37 +118,25 @@
         .shimmer-text { background: linear-gradient(90deg, #fff, #0ACDFF, #fff); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 3s linear infinite; }
         @keyframes shimmer { to { background-position: 200% center; } }
 
-        /* MOBILE OVERRIDES (APP-CORE) */
+        /* REVISED MOBILE: MATCHING DESKTOP EXACTLY */
         @media only screen and (max-width: 768px) {
-            footer { display: none !important; }
-            body { overflow: hidden; height: 100vh; position: fixed; width: 100%; }
-            
-            header {
-                padding: 0.8rem 1.2rem;
-                display: flex;
-                justify-content: center; /* Center title for app feel */
-                align-items: center;
-                background: rgba(3, 71, 50, 0.95);
-            }
-            header h1 { font-size: 1.3rem; letter-spacing: 1px; text-transform: uppercase; }
-            header button { position: absolute; right: 1.2rem; font-size: 0.8rem; padding: 6px 14px !important; }
-
-            .home-layout { padding: 15px; align-items: center; margin-top: 40px; }
+            header { padding: 1rem 1.5rem; }
             .home-box {
-                padding: 4rem 1.5rem;
-                max-width: 90%;
-                border-radius: 40px !important; /* Fixed radius for app card look */
-                animation: boxFadeUp 0.8s 3.2s ease-out both; 
+                padding: 4rem 2rem;
+                max-width: 85%;
+                /* Animation and morph preserved from desktop */
             }
-            .shimmer-text { font-size: 2.2rem !important; }
-            .stat-pill { display: none; } /* Remove floating pills for cleaner app look on mobile */
-            
-            .get-started-btn {
-                width: 100%;
-                padding: 18px;
-                font-size: 1.1rem;
-                border-radius: 20px; /* Squircle button for app feel */
+            .shimmer-text { font-size: 2rem !important; }
+            .stat-pill {
+                display: block; /* Ensure they stay visible */
+                font-size: 0.65rem;
+                padding: 5px 12px;
             }
+            /* Adjust pill positions so they don't fly off screen on narrow widths */
+            .pill-1 { left: -10px !important; top: -10px !important; }
+            .pill-2 { right: -10px !important; top: 15% !important; }
+            .pill-3 { left: -15px !important; bottom: 15% !important; }
+            .pill-4 { right: -5px !important; bottom: -10px !important; }
         }
     </style>
 </head>
@@ -171,10 +160,10 @@
 
 <main class="home-layout">
     <div class="home-box">
-        <div class="stat-pill" style="top: -15px; left: -40px;">✨ Persist</div>
-        <div class="stat-pill" style="top: 20%; right: -50px; color: #0ACDFF;">🌱 Evolve</div>
-        <div class="stat-pill" style="bottom: 10%; left: -60px;">⚡ Vitality</div>
-        <div class="stat-pill" style="bottom: -20px; right: 20px; color: #CBE896;">💪 Strength</div>
+        <div class="stat-pill pill-1" style="top: -15px; left: -40px;">✨ Persist</div>
+        <div class="stat-pill pill-2" style="top: 20%; right: -50px; color: #0ACDFF;">🌱 Evolve</div>
+        <div class="stat-pill pill-3" style="bottom: 10%; left: -60px;">⚡ Vitality</div>
+        <div class="stat-pill pill-4" style="bottom: -20px; right: 20px; color: #CBE896;">💪 Strength</div>
 
         <h2 class="shimmer-text" style="font-size: 2.8rem; margin: 0 0 1.2rem 0; font-weight: 900;">Fuel Your Life</h2>
         <p style="font-size: 1.1rem; opacity: 0.85; margin-bottom: 2.5rem; font-weight: 300;">
@@ -218,7 +207,6 @@
         }
     }
 
-    // Fewer bubbles on mobile for performance
     const count = window.innerWidth < 768 ? 3 : 5;
     for (let i = 0; i < count; i++) bubbles.push(new GlassBubble());
 
@@ -229,21 +217,21 @@
     mainLoop();
 
     window.addEventListener('mousemove', e => {
-        if (window.innerWidth > 768) {
-            document.body.style.setProperty('--x', e.clientX + 'px');
-            document.body.style.setProperty('--y', e.clientY + 'px');
-            const btn = document.getElementById('get-started-btn');
-            const rect = btn.getBoundingClientRect();
-            const btnX = rect.left + rect.width / 2;
-            const btnY = rect.top + rect.height / 2;
-            const dist = Math.hypot(e.clientX - btnX, e.clientY - btnY);
-            if (dist < 150) {
-                const moveX = (e.clientX - btnX) * 0.2;
-                const moveY = (e.clientY - btnY) * 0.2;
-                btn.style.transform = `translate(${moveX}px, ${moveY}px)`;
-            } else {
-                btn.style.transform = `translate(0, 0)`;
-            }
+        document.body.style.setProperty('--x', e.clientX + 'px');
+        document.body.style.setProperty('--y', e.clientY + 'px');
+
+        const btn = document.getElementById('get-started-btn');
+        const rect = btn.getBoundingClientRect();
+        const btnX = rect.left + rect.width / 2;
+        const btnY = rect.top + rect.height / 2;
+        const dist = Math.hypot(e.clientX - btnX, e.clientY - btnY);
+
+        if (dist < 150) {
+            const moveX = (e.clientX - btnX) * 0.2;
+            const moveY = (e.clientY - btnY) * 0.2;
+            btn.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        } else {
+            btn.style.transform = `translate(0, 0)`;
         }
     });
 </script>
