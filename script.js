@@ -1,3 +1,4 @@
+console.log("Script is working");
 document.getElementById('scanBtn').addEventListener('click', async () => {
     console.log("Button clicked);
     const fileInput = document.getElementById('cameraInput');
