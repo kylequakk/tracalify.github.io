@@ -13,12 +13,13 @@
             width: 100vw; height: 100vh;
             z-index: 9999;
             background: #034732;
-            transition: transform 0.5s cubic-bezier(0.85, 0, 0.15, 1);
+            transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
         .bar { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform: translateX(-100%); }
         .blue-bar { background: #0ACDFF; z-index: 10; animation: slamToMiddle 0.4s cubic-bezier(0.175, 0.885, 0.32, 1) forwards; }
         .green-bar { background: #CBE896; z-index: 11; animation: slamToMiddle 0.4s 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.2) forwards; }
+
         @keyframes slamToMiddle { to { transform: translateX(0); } }
 
         .logo-wrap {
@@ -31,26 +32,46 @@
         .brand-rest { max-width: 0; overflow: hidden; white-space: nowrap; opacity: 0; animation: expandName 0.7s 1.6s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
 
         @keyframes tImpact { 0% { opacity: 0; transform: scale(5); } 100% { opacity: 1; transform: scale(1); } }
-        @keyframes expandName { 0% { max-width: 0; opacity: 0; } 100% { max-width: 600px; opacity: 1; } }
+        @keyframes expandName { 0% { max-width: 600px; opacity: 1; } 100% { max-width: 600px; opacity: 1; } }
 
         .loader-hidden { transform: translateY(-100%) !important; }
 
-        /* --- MAIN UI --- */
+        /* --- MAIN UI & LIQUID GLASS --- */
         body {
             font-family: 'Poppins', sans-serif; margin: 0; padding: 0; min-height: 100vh;
-            /* REINSTATED ORIGINAL IMAGE */
             background-image: url("https://image2url.com/r2/default/images/1770433351759-72c97944-077b-4c2d-b88c-ad6e0ab6c4f4.png");
             background-size: cover; background-position: center; background-attachment: fixed;
             color: white; padding-bottom: 80px;
+            position: relative;
         }
 
-        header { background: #0ACDFF; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        /* The Liquid Glass Layer */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 71, 50, 0.5); /* Deep green tint */
+            backdrop-filter: blur(12px) saturate(160%);
+            -webkit-backdrop-filter: blur(12px) saturate(160%);
+            z-index: 0;
+        }
+
+        header {
+            position: relative; z-index: 10;
+            background: #0ACDFF; padding: 1rem 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
 
         main {
-            position: relative; overflow: hidden;
+            position: relative; z-index: 5;
+            overflow: hidden;
             padding: 2.5rem 1.5rem; max-width: 450px; width: 90%;
-            margin: 4rem auto 2rem auto; background: rgba(3, 71, 50, 0.95);
-            border-radius: 24px; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1);
+            margin: 4rem auto 2rem auto;
+            background: rgba(255, 255, 255, 0.1); /* Frosted glass look */
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             text-align: center;
         }
 
@@ -64,24 +85,32 @@
         .upload-btn {
             background: #0ACDFF; color: white; padding: 18px 40px; border-radius: 12px;
             font-weight: 700; border: none; cursor: pointer; margin-bottom: 1.5rem;
-            transition: transform 0.2s; font-family: 'Poppins'; font-size: 1rem;
+            transition: all 0.3s; font-family: 'Poppins'; font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(10, 205, 255, 0.3);
         }
+        .upload-btn:hover { transform: scale(1.02); background: #00b4e6; }
 
         .status-item { margin-bottom: 1.2rem; text-align: left; }
         .status-label { display: flex; justify-content: space-between; margin-bottom: 6px; font-weight: 600; font-size: 0.9rem; }
-        .progress-bg { background: rgba(255,255,255,0.1); height: 10px; border-radius: 10px; overflow: hidden; }
-        .progress-fill { height: 100%; width: 0%; transition: width 1s ease-out; }
+        .progress-bg { background: rgba(255,255,255,0.15); height: 10px; border-radius: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; width: 0%; transition: width 1s cubic-bezier(0.17, 0.84, 0.44, 1); }
 
         /* History Section */
-        .history-section { max-width: 450px; width: 90%; margin: 0 auto; text-align: left; }
+        .history-section { position: relative; z-index: 5; max-width: 450px; width: 90%; margin: 0 auto; text-align: left; }
         .history-card {
-            background: rgba(3, 71, 50, 0.85); padding: 15px; border-radius: 15px;
+            background: rgba(3, 71, 50, 0.6);
+            backdrop-filter: blur(5px);
+            padding: 15px; border-radius: 15px;
             margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
-            border-left: 4px solid #CBE896; animation: slideIn 0.4s ease-out forwards;
+            border-left: 4px solid #CBE896; border-top: 1px solid rgba(255,255,255,0.1);
+            animation: slideIn 0.4s ease-out forwards;
         }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        footer { text-align: center; padding: 1.2rem; background: #CBE896; color: #034732; font-weight: 700; position: fixed; bottom: 0; width: 100%; }
+        footer {
+            text-align: center; padding: 1.2rem; background: #CBE896; color: #034732;
+            font-weight: 700; position: fixed; bottom: 0; width: 100%; z-index: 100;
+        }
     </style>
 </head>
 <body>
@@ -120,7 +149,7 @@
 </main>
 
 <div class="history-section">
-    <h3 style="margin-left: 10px; margin-bottom: 15px;">Recent Logs</h3>
+    <h3 style="margin-left: 10px; margin-bottom: 15px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">Recent Logs</h3>
     <div id="history-list">
     </div>
 </div>
@@ -128,7 +157,7 @@
 <footer><p style="margin:0;">© 2026 Trackify AI</p></footer>
 
 <script>
-    // Initial Loader
+    // Initial Loader logic
     window.addEventListener("load", () => {
         setTimeout(() => {
             document.getElementById("loader-overlay").classList.add("loader-hidden");
@@ -155,6 +184,10 @@
         scanLine.style.display = "block";
         statusText.innerText = "Identifying ingredients...";
 
+        // Reset bars for new scan animation
+        document.getElementById('p-bar').style.width = "0%";
+        document.getElementById('c-bar').style.width = "0%";
+
         setTimeout(() => {
             const results = {
                 protein: Math.floor(Math.random() * 35) + 15,
@@ -173,9 +206,13 @@
     }
 
     function updateUI(data) {
-        document.getElementById('p-bar').style.width = (data.protein * 2) + "%";
+        // Cap width at 100% to prevent layout breaks
+        const pWidth = Math.min(data.protein * 2.5, 100);
+        const cWidth = Math.min(data.carbs * 1.5, 100);
+
+        document.getElementById('p-bar').style.width = pWidth + "%";
         document.getElementById('p-val').innerText = data.protein + "g";
-        document.getElementById('c-bar').style.width = (data.carbs) + "%";
+        document.getElementById('c-bar').style.width = cWidth + "%";
         document.getElementById('c-val').innerText = data.carbs + "g";
     }
 
@@ -186,7 +223,7 @@
         card.innerHTML = `
             <div>
                 <strong style="display:block;">${data.mealName}</strong>
-                <small style="opacity:0.7;">Today at ${time}</small>
+                <small style="opacity:0.8;">Today at ${time}</small>
             </div>
             <div style="text-align:right;">
                 <span style="color:#CBE896; font-weight:700;">${data.protein}g P</span><br>
