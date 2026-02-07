@@ -109,6 +109,7 @@
         formData.append("file", file); // Must match @RequestParam("file") in Java
 
         try {
+            console.log("Attempting to connect");
             // Send to Spring Boot Controller
             const response = await fetch("http://localhost:8080/api/meals/analyze", {
                 method: "POST",
