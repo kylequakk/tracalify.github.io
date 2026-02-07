@@ -1,4 +1,3 @@
-package com.caltracker;
 
 import java.util.Date; //imports the time
 import java.util.InputMismatchException;
@@ -58,6 +57,22 @@ public class Meal {
         return userName;
     } //getUserName() method
 
+    /*--------------------------------------------------------
+        setUserName() sets user's name
+        @param String username
+        @throws InputMismatchException for non String name
+     --------------------------------------------------------*/
+    public void setUserName(String username){
+        //Check if username is populated
+        String userNameErr = "Unexpected username error occurred";
+        if (username == null){
+            throw new InputMismatchException(userNameErr);
+        }
+        if (username.isBlank()){
+            throw new InputMismatchException(userNameErr);
+        }
+        this.userName = username;
+    } //setUserName() method
 
     /*--------------------------------------------------------
         getMealName() returns meal's name
@@ -67,11 +82,37 @@ public class Meal {
     } //getMealName() method
 
     /*--------------------------------------------------------
+        setMealName() sets meal's name
+        @param String mealName
+        @throws InputMismatchException for non String name
+    --------------------------------------------------------*/
+    public void setMealName(String mealName){
+        //Check if username is populated
+        String mealNameErr = "Unexpected meal error occurred";
+        if (mealName == null){
+            throw new InputMismatchException(mealNameErr);
+        }
+        if (mealName.isBlank()){
+            throw new InputMismatchException(mealNameErr);
+        }
+        this.mealName = mealName;
+    } //setMealName() method
+
+
+    /*--------------------------------------------------------
         getCalories() returns calories
     --------------------------------------------------------*/
     public double getCalories(){
         return calories;
     } //getCalories() method
+
+    /*--------------------------------------------------------
+        setCalories() sets calories' name
+        @param double calories
+    --------------------------------------------------------*/
+    public void setCalories(double calories){
+        this.calories = calories;
+    } //setCalories() method
 
     /*--------------------------------------------------------
         getProteins() returns proteins
@@ -81,11 +122,28 @@ public class Meal {
     } //getProteins() method
 
     /*--------------------------------------------------------
+        setProteins() sets proteins' name
+        @param double proteins
+    --------------------------------------------------------*/
+    public void setProteins(double proteins){
+        this.proteins = proteins;
+    } //setProteins() method
+
+
+    /*--------------------------------------------------------
         getCarbohydrates() returns carbohydrates
     --------------------------------------------------------*/
     public double getCarbohydrates(){
         return carbohydrates;
     } //getCarbohydrates() method
+
+    /*--------------------------------------------------------
+        setCarbohydrates() sets carbohydrates' name
+        @param double carbohydrates
+    --------------------------------------------------------*/
+    public void setCarbohydrates(double carbohydrates){
+        this.carbohydrates = carbohydrates;
+    } //setCarbohydrates() method
 
     /*--------------------------------------------------------
         getFibers() returns fibers
@@ -95,11 +153,27 @@ public class Meal {
     } //getFibers() method
 
     /*--------------------------------------------------------
+        setFibers() sets fibers' name
+        @param double fibers
+    --------------------------------------------------------*/
+    public void setFibers(double fibers){
+        this.fibers = fibers;
+    } //setFibers() method
+
+    /*--------------------------------------------------------
         getFats() returns fats
     --------------------------------------------------------*/
     public double getFats(){
         return fats;
     } //getFats() method
+
+    /*--------------------------------------------------------
+        setFats() sets fats' name
+        @param double fats
+    --------------------------------------------------------*/
+    public void setFats(double fats){
+        this.fats = fats;
+    } //setFats() method
 
     /*--------------------------------------------------------
         getSugars() returns sugars
@@ -109,11 +183,25 @@ public class Meal {
     } //getSugars() method
 
     /*--------------------------------------------------------
+        getSugars() sets sugars' name
+        @param double sugars
+    --------------------------------------------------------*/
+    public void setSugars(double sugars){
+        this.sugars = sugars;
+    } //setSugars() method
+
+    /*--------------------------------------------------------
         getTimeStamp() returns time meal was logged
     --------------------------------------------------------*/
     public Date getTimeStamp(){
         return timeStamp;
     } //getTimeStamp() method
 
-
-}
+    /*--------------------------------------------------------
+        setTimeStamp() sets timeStamp's name
+        @param double calories
+    --------------------------------------------------------*/
+    public void setTimeStamp(Date timeStamp){
+        this.timeStamp = timeStamp;
+    } //setTimeStamp() method
+} //Meal class
