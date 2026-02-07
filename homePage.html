@@ -6,37 +6,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trackify</title>
     <style>
+        .result-item { background: rgba(255, 255, 255, 0.35); padding: 0.8rem 1rem; border-radius: 6px; margin-bottom: 0.8rem; display: flex; justify-content: space-between; align-items: center; color: #034732; font-weight: 600; } .food-name { font-size: 1rem; } .calories { font-size: 1rem; font-weight: 700; }
 
-        .home-layout {
-            display: flex;
-            width: 100%;
-            margin-top: 6rem; /* space below header */
-            min-height: 70vh; /* makes it feel like a hero section */
+        .analysis-box {
+            width: 90%;
+            max-width: 1000px;
+            margin: 2rem auto;
+            background: rgba(3, 71, 50, 0.85); /* deep green box */
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
-        .home-left {
-            flex: 1.2; /* left side is bigger */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .home-right {
-            flex: 1; /* right side shows background */
-        }
-
-        .home-box {
-            width: 80%;
-            background: #034732;
-            padding: 2.5rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-            color: #F3EFE6;
+        .analysis-box h2 {
+            color: white;
             text-align: center;
+            margin-bottom: 1rem;
+            font-weight: 600;
         }
 
+        .result-item {
+            background: rgba(255, 255, 255, 0.25);
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            margin-bottom: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white; /* fixes your black text issue */
+            font-weight: 600;
+        }
 
+        .food-name {
+            font-size: 1rem;
+        }
 
+        .calories {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .analysis-box {
+            width: 90%;
+            max-width: 1000px;
+            margin: 3rem auto;
+            margin-top: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1.5rem;
+            border-radius: 10px;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .analysis-box h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
 
         .signin-btn { background: white; color: #0ACDFF; padding: 8px 16px; border-radius: 6px; font-weight: 600; border: none; cursor: pointer; transition: background 0.3s ease; } .signin-btn:hover { background: #e0f7ff; }
         body {
@@ -73,13 +100,34 @@
             transition: transform 0.35s ease;
         }
 
+        .upload-btn {
+            background: #0ACDFF;        /* button color */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-block;
+            margin: 1rem 0;
+            border: 2px solid #0AB6E0; /* outline */
+        }
 
+        .upload-btn:hover {
+            background: #0AB6E0;
+            border-color: #0ACDFF;
+        }
 
+        main {
+            padding: 2rem 1rem; /* more space INSIDE the box */
+            font-size: 1rem;
+            max-width: 800px;
+            margin: 6rem auto 3rem auto; /* more space ABOVE the box */
+            background: #034732;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
 
-
-
-
-
+        .upload-btn { background: #0ACDFF; /* your original bright blue */ color: white; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; display: block; /* keeps it from overflowing */ width: fit-content; /* button only as wide as needed */ margin: 1rem auto; /* centers it */ border: 2px solid #087fa3; /* blue outline */ box-sizing: border-box; /* prevents weird stretching */ } .upload-btn:hover { background: #08b5e0; /* slightly darker hover blue */ border-color: #06627d; /* darker outline on hover */ }
 
         a:hover {
             text-decoration: underline;
@@ -100,20 +148,47 @@
     <button class="signin-btn">Sign In</button>
 </header>
 
-<main class="home-layout">
-    <div class="home-left">
-        <div class="home-box">
-            <h2>Welcome to Trackify</h2>
-            <p>Your smart companion for effortless calorie tracking.</p>
+<main>
+    <p style="color: #F3EFE6;">Upload a picture of your meal to count your calories!</p>
 
-            <a href="index.html">
-                <button class="signin-btn">Get Started</button>
-            </a>
+    <label class="upload-btn"> Upload a Photo <input type="file" accept="image/*" hidden> </label>
+    <div class="analysis-box">
+        <h2>Analysis Results</h2>
 
+        <div class="result-item">
+            <span class="food-name">Food Name</span>
+            <span class="calories">000 kcal</span>
         </div>
+
+        <div class="result-item">
+            <span class="food-name">Food Name</span>
+            <span class="calories">000 kcal</span>
+        </div>
+
+        <div class="result-item">
+            <span class="food-name">Food Name</span>
+            <span class="calories">000 kcal</span>
+        </div>
+
+        <div class="result-item">
+            <span class="food-name">Food Name</span>
+            <span class="calories">000 kcal</span>
+        </div>
+
+        <div class="result-item">
+            <span class="food-name">Food Name</span>
+            <span class="calories">000 kcal</span>
+        </div>
+
+        <div class="result-item">
+            <span class="food-name">Food Name</span>
+            <span class="calories">000 kcal</span>
+        </div>
+
+
+        <!-- Add more result-item blocks as needed -->
     </div>
 
-    <div class="home-right"></div>
 </main>
 
 <footer>
@@ -146,5 +221,9 @@
         lastScroll = currentScroll;
     });
 </script>
+
+
+
+
 </body>
 </html>
