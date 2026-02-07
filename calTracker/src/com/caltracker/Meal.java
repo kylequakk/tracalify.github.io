@@ -59,8 +59,13 @@ public class Meal {
     /*--------------------------------------------------------
         setId() sets meal's id
         @param int id
+        @throws IllegalArgumentException for all values
+        of id < -1
     --------------------------------------------------------*/
-    public void getUserName(int id) {
+    public void setId(int id) {
+        if (id < -1){
+            throw new IllegalArgumentException("id must be greater than -1");
+        }
         this.id = id;
     } //setId() method
 
