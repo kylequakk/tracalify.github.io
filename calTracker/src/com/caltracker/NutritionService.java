@@ -1,8 +1,9 @@
+package com.caltracker;
+
 import com.google.genai.Client;
 import com.google.genai.types.GenerateContentResponse;
 import com.google.genai.types.Part;
-import java.nio.file.Files;
-import java.nio.file.Path;
+
 import java.util.Arrays;
 import java.io.IOException;
 import com.google.gson.Gson;
