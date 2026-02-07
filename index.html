@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trackify</title>
+    <style>
+        .signin-btn { background: white; color: #0ACDFF; padding: 8px 16px; border-radius: 6px; font-weight: 600; border: none; cursor: pointer; transition: background 0.3s ease; } .signin-btn:hover { background: #e0f7ff; }
+        body {
+
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: url("https://image2url.com/r2/default/images/1770433351759-72c97944-077b-4c2d-b88c-ad6e0ab6c4f4.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+        }
+        header {
+            background-color: #0ACDFF; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; animation: slideDown 1s ease-out forwards;
+            animation: slideDown 1s ease-out forwards; } @keyframes
+                                                                 slideDown { from {
+                                                                         transform: translateY(-40px);
+                                                                         opacity: 0;
+                                                                     }
+                                                                     to {
+                                                                         transform: translateY(0);
+                                                                         opacity: 1;
+                                                                     }
+                                                                 }
+        .upload-btn {
+            background: #0ACDFF;        /* button color */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-block;
+            margin: 1rem 0;
+            border: 2px solid #0AB6E0; /* outline */
+        }
+
+        .upload-btn:hover {
+            background: #0AB6E0;
+            border-color: #0ACDFF;
+        }
+
+        main {
+            padding: 1rem;
+            font-size: 1rem;
+            max-width: 800px;
+            margin: auto;
+            background: #034732;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .upload-btn { background: #0ACDFF; /* your original bright blue */ color: white; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; display: block; /* keeps it from overflowing */ width: fit-content; /* button only as wide as needed */ margin: 1rem auto; /* centers it */ border: 2px solid #087fa3; /* blue outline */ box-sizing: border-box; /* prevents weird stretching */ } .upload-btn:hover { background: #08b5e0; /* slightly darker hover blue */ border-color: #06627d; /* darker outline on hover */ }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: #CBE896;
+            color: white;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1 style="margin: 0;">Trackify</h1>
+    <button class="signin-btn">Sign In</button>
+</header>
+
+<main>
+    <p style="color: #F3EFE6;">Upload a picture of your meal to count your calories!</p>
+
+    <label class="upload-btn"> Upload a Photo <input type="file" accept="image/*" hidden> </label>
+</main>
+
+<footer>
+
+    <p>© 2026 My Website</p>
+</footer>
+</body>
+</html>
