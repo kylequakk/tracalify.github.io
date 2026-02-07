@@ -13,4 +13,10 @@ public class Meal {
     private double fat;
     private double sugar;
     private Date timeStamp;
+
+    public Meal(){} //used for JSON library
+
+
+
+
 }
