@@ -43,6 +43,6 @@ public class NutritionService {
         if (response.data.length == 0) {
             throw new IOException("Cannot find any data");
         }
-        return null;
+        return response;
     }
 }
