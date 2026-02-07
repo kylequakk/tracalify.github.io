@@ -1,1 +1,20 @@
-package com.caltracker.model; public class User { private Long id; private String email; private String password; // hashed private String username; // getters + setters
+package com.caltracker.model;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "users")
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true)
+    private String email;
+
+    private String username;
+    private String password;
+
+    // getters + setters
+}
