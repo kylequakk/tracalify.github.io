@@ -11,6 +11,8 @@ public class User {
     private String username;
     private String password;
 
+    public User(){}; //used for JSON library
+
     /*--------------------------------------------------------
         user Constructor returns parameters id and username
         @param int id returns database id of user
@@ -75,5 +77,6 @@ public class User {
     /*--------------------------------------------------------
         getMeal() accesses current meal object
      --------------------------------------------------------*/
+
 
 } //user class

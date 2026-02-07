@@ -1,229 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trackify</title>
+    <title>Trackify - Smart Meal Scanner</title>
     <style>
-        .result-item { background: rgba(255, 255, 255, 0.35); padding: 0.8rem 1rem; border-radius: 6px; margin-bottom: 0.8rem; display: flex; justify-content: space-between; align-items: center; color: #034732; font-weight: 600; } .food-name { font-size: 1rem; } .calories { font-size: 1rem; font-weight: 700; }
-
-        .analysis-box {
-            width: 90%;
-            max-width: 1000px;
-            margin: 2rem auto;
-            background: rgba(3, 71, 50, 0.85); /* deep green box */
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        .analysis-box h2 {
-            color: white;
-            text-align: center;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .result-item {
-            background: rgba(255, 255, 255, 0.25);
-            padding: 0.8rem 1rem;
-            border-radius: 6px;
-            margin-bottom: 0.8rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: white; /* fixes your black text issue */
-            font-weight: 600;
-        }
-
-        .food-name {
-            font-size: 1rem;
-        }
-
-        .calories {
-            font-size: 1rem;
-            font-weight: 700;
-        }
-
-        .analysis-box {
-            width: 90%;
-            max-width: 1000px;
-            margin: 3rem auto;
-            margin-top: 1rem;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 1.5rem;
-            border-radius: 10px;
-            backdrop-filter: blur(6px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        .analysis-box h2 {
-            color: white;
-            text-align: center;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .signin-btn { background: white; color: #0ACDFF; padding: 8px 16px; border-radius: 6px; font-weight: 600; border: none; cursor: pointer; transition: background 0.3s ease; } .signin-btn:hover { background: #e0f7ff; }
-        body {
-
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-image: url("https://image2url.com/r2/default/images/1770433351759-72c97944-077b-4c2d-b88c-ad6e0ab6c4f4.png");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-
-        }
-        header {
+        /* --- LOADER & ANIMATIONS --- */
+        #loader-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-
-            z-index: 1000;
-
-            background-color: #0ACDFF;
-            color: white;
-            padding: 1rem 2rem;
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            transform: translateY(0);
-            transition: transform 0.35s ease;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 9999;
+            background: #034732;
+            transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
-        .upload-btn {
-            background: #0ACDFF;        /* button color */
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            display: inline-block;
-            margin: 1rem 0;
-            border: 2px solid #0AB6E0; /* outline */
+        .bar { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform: translateX(-100%); }
+        .blue-bar { background: #0ACDFF; z-index: 10; animation: slamToMiddle 0.4s cubic-bezier(0.175, 0.885, 0.32, 1) forwards; }
+        .green-bar { background: #CBE896; z-index: 11; animation: slamToMiddle 0.4s 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.2) forwards; }
+
+        @keyframes slamToMiddle { to { transform: translateX(0); } }
+
+        .logo-wrap {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            display: flex; align-items: center; z-index: 10000;
+            font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 80px; color: #FFFFFF;
         }
 
-        .upload-btn:hover {
-            background: #0AB6E0;
-            border-color: #0ACDFF;
+        .letter-t { opacity: 0; animation: tImpact 0.2s 1.0s cubic-bezier(0.17, 0.89, 0.32, 1.5) forwards; }
+        .brand-rest { max-width: 0; overflow: hidden; white-space: nowrap; opacity: 0; animation: expandName 0.7s 1.6s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+
+        @keyframes tImpact { 0% { opacity: 0; transform: scale(5); } 100% { opacity: 1; transform: scale(1); } }
+        @keyframes expandName { 0% { max-width: 600px; opacity: 1; } 100% { max-width: 600px; opacity: 1; } }
+
+        .loader-hidden { transform: translateY(-100%) !important; }
+
+        /* --- MAIN UI & LIQUID GLASS --- */
+        body {
+            font-family: 'Poppins', sans-serif; margin: 0; padding: 0; min-height: 100vh;
+            background-image: url("https://image2url.com/r2/default/images/1770433351759-72c97944-077b-4c2d-b88c-ad6e0ab6c4f4.png");
+            background-size: cover; background-position: center; background-attachment: fixed;
+            color: white; padding-bottom: 100px;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 71, 50, 0.5);
+            backdrop-filter: blur(12px) saturate(160%);
+            -webkit-backdrop-filter: blur(12px) saturate(160%);
+            z-index: 0;
+        }
+
+        header {
+            position: relative; z-index: 10;
+            background: #0ACDFF; padding: 1rem 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         main {
-            padding: 2rem 1rem; /* more space INSIDE the box */
-            font-size: 1rem;
-            max-width: 800px;
-            margin: 6rem auto 3rem auto; /* more space ABOVE the box */
-            background: #034732;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative; z-index: 5;
+            overflow: hidden;
+            padding: 2rem 1.5rem; max-width: 450px; width: 90%;
+            margin: 2rem auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            text-align: center;
         }
 
-        .upload-btn { background: #0ACDFF; /* your original bright blue */ color: white; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; display: block; /* keeps it from overflowing */ width: fit-content; /* button only as wide as needed */ margin: 1rem auto; /* centers it */ border: 2px solid #087fa3; /* blue outline */ box-sizing: border-box; /* prevents weird stretching */ } .upload-btn:hover { background: #08b5e0; /* slightly darker hover blue */ border-color: #06627d; /* darker outline on hover */ }
-
-        a:hover {
-            text-decoration: underline;
+        .scan-line {
+            position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: #0ACDFF; box-shadow: 0 0 20px #0ACDFF;
+            z-index: 20; display: none; animation: scanMove 2s linear infinite;
         }
+        @keyframes scanMove { 0% { top: 0; } 100% { top: 100%; } }
+
+        .upload-btn {
+            background: #0ACDFF; color: white; padding: 16px 30px; border-radius: 12px;
+            font-weight: 700; border: none; cursor: pointer; margin-bottom: 1.5rem;
+            transition: all 0.3s; font-family: 'Poppins'; font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(10, 205, 255, 0.3);
+            width: 100%;
+        }
+        .upload-btn:hover { transform: scale(1.02); background: #00b4e6; }
+
+        .status-container { margin-top: 20px; }
+        .status-item { margin-bottom: 1rem; text-align: left; }
+        .status-label { display: flex; justify-content: space-between; margin-bottom: 4px; font-weight: 600; font-size: 0.85rem; }
+        .progress-bg { background: rgba(255,255,255,0.15); height: 8px; border-radius: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; width: 0%; transition: width 1s cubic-bezier(0.17, 0.84, 0.44, 1); }
+
+        /* History Section */
+        .history-section { position: relative; z-index: 5; max-width: 450px; width: 90%; margin: 0 auto; text-align: left; }
+        .history-card {
+            background: rgba(3, 71, 50, 0.6);
+            backdrop-filter: blur(5px);
+            padding: 15px; border-radius: 15px;
+            margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
+            border-left: 4px solid #CBE896; border-top: 1px solid rgba(255,255,255,0.1);
+            animation: slideIn 0.4s ease-out forwards;
+        }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         footer {
-            text-align: center;
-            padding: 1rem;
-            background: #CBE896;
-            color: white;
-            margin-top: 2rem;
+            text-align: center; padding: 1.2rem; background: #CBE896; color: #034732;
+            font-weight: 700; position: fixed; bottom: 0; width: 100%; z-index: 100;
         }
     </style>
 </head>
 <body>
+
+<div id="loader-overlay">
+    <div class="bar blue-bar"></div>
+    <div class="bar green-bar"></div>
+    <div class="logo-wrap">
+        <span class="letter-t">T</span><span class="brand-rest">rackify</span>
+    </div>
+</div>
+
 <header>
-    <h1 style="margin: 0;">Trackify</h1>
-    <button class="signin-btn">Sign In</button>
+    <h1 style="margin:0; font-size: 1.5rem;">Trackify</h1>
+    <div style="background:white; color:#0ACDFF; padding:6px 15px; border-radius:8px; font-weight:700; font-size: 0.8rem; cursor:pointer;">SIGN IN</div>
 </header>
 
-<main>
-    <p style="color: #F3EFE6;">Upload a picture of your meal to count your calories!</p>
+<main id="main-scanner">
+    <div id="scan-line" class="scan-line"></div>
+    <h2 style="margin-top:0; font-size: 1.4rem;">Meal Intelligence</h2>
+    <p id="status-text" style="color: #CBE896; font-weight: 600; min-height: 24px; font-size: 0.9rem; margin-bottom: 1.5rem;">Ready to scan</p>
 
-    <label class="upload-btn"> Upload a Photo <input type="file" accept="image/*" hidden> </label>
-    <div class="analysis-box">
-        <h2>Analysis Results</h2>
+    <input type="file" id="cameraInput" accept="image/*" capture="camera" style="display: none;">
+    <button class="upload-btn" id="scanBtn">Start Scanning</button>
 
-        <div class="result-item">
-            <span class="food-name">Food Name</span>
-            <span class="calories">000 kcal</span>
+    <div class="status-container">
+        <div class="status-item">
+            <div class="status-label"><span>Calories</span><span id="cal-val">0 kcal</span></div>
+            <div class="progress-bg"><div id="cal-bar" class="progress-fill" style="background: #FFFFFF;"></div></div>
         </div>
-
-        <div class="result-item">
-            <span class="food-name">Food Name</span>
-            <span class="calories">000 kcal</span>
+        <div class="status-item">
+            <div class="status-label"><span>Protein</span><span id="p-val">0g</span></div>
+            <div class="progress-bg"><div id="p-bar" class="progress-fill" style="background: #CBE896;"></div></div>
         </div>
-
-        <div class="result-item">
-            <span class="food-name">Food Name</span>
-            <span class="calories">000 kcal</span>
+        <div class="status-item">
+            <div class="status-label"><span>Carbohydrates</span><span id="c-val">0g</span></div>
+            <div class="progress-bg"><div id="c-bar" class="progress-fill" style="background: #0ACDFF;"></div></div>
         </div>
-
-        <div class="result-item">
-            <span class="food-name">Food Name</span>
-            <span class="calories">000 kcal</span>
+        <div class="status-item">
+            <div class="status-label"><span>Fat</span><span id="f-val">0g</span></div>
+            <div class="progress-bg"><div id="f-bar" class="progress-fill" style="background: #FFD700;"></div></div>
         </div>
-
-        <div class="result-item">
-            <span class="food-name">Food Name</span>
-            <span class="calories">000 kcal</span>
+        <div class="status-item">
+            <div class="status-label"><span>Sugar</span><span id="s-val">0g</span></div>
+            <div class="progress-bg"><div id="s-bar" class="progress-fill" style="background: #FF85A1;"></div></div>
         </div>
-
-        <div class="result-item">
-            <span class="food-name">Food Name</span>
-            <span class="calories">000 kcal</span>
+        <div class="status-item">
+            <div class="status-label"><span>Fiber</span><span id="fib-val">0g</span></div>
+            <div class="progress-bg"><div id="fib-bar" class="progress-fill" style="background: #A1887F;"></div></div>
         </div>
-
-
-        <!-- Add more result-item blocks as needed -->
     </div>
-
 </main>
 
-<footer>
+<div class="history-section">
+    <h3 style="margin-left: 10px; margin-bottom: 15px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">Recent Logs</h3>
+    <div id="history-list"></div>
+</div>
 
-    <p>© 2026 Trackify</p>
-</footer>
+<footer><p style="margin:0;">© 2026 Trackify AI</p></footer>
+
 <script>
-    let lastScroll = 0;
-    const header = document.querySelector("header");
-    const hideAfter = 10; // how far user scrolls before header hides
-
-    window.addEventListener("scroll", () => {
-        const currentScroll = window.pageYOffset;
-
-        // Always show header at the very top
-        if (currentScroll < hideAfter) {
-            header.style.transform = "translateY(0)";
-            lastScroll = currentScroll;
-            return;
-        }
-
-        if (currentScroll > lastScroll) {
-            // Scrolling down → hide header
-            header.style.transform = "translateY(-100%)";
-        } else {
-            // Scrolling up → show header
-            header.style.transform = "translateY(0)";
-        }
-
-        lastScroll = currentScroll;
+    // Initial Loader logic
+    window.addEventListener("load", () => {
+        setTimeout(() => {
+            document.getElementById("loader-overlay").classList.add("loader-hidden");
+        }, 2800);
     });
+
+    const scanBtn = document.getElementById('scanBtn');
+    const cameraInput = document.getElementById('cameraInput');
+    const scanLine = document.getElementById('scan-line');
+    const statusText = document.getElementById('status-text');
+    const historyList = document.getElementById('history-list');
+
+    scanBtn.addEventListener('click', () => cameraInput.click());
+
+    cameraInput.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            runScan();
+        }
+    });
+
+    function runScan() {
+        scanBtn.disabled = true;
+        scanBtn.innerText = "Analyzing...";
+        scanLine.style.display = "block";
+        statusText.innerText = "Extracting nutritional data...";
+
+        // Reset bars for new scan animation
+        const bars = ['cal-bar', 'p-bar', 'c-bar', 'f-bar', 's-bar', 'fib-bar'];
+        bars.forEach(id => document.getElementById(id).style.width = "0%");
+
+        setTimeout(() => {
+            // Simulated AI extraction logic using double precision
+            const protein = (Math.random() * 25 + 10).toFixed(1);
+            const carbs = (Math.random() * 50 + 15).toFixed(1);
+            const fat = (Math.random() * 20 + 5).toFixed(1);
+            const sugar = (Math.random() * 10).toFixed(1);
+            const fibers = (Math.random() * 8).toFixed(1);
+            
+            // Calculate calories based on 4-4-9 rule
+            const calories = ( (protein * 4) + (carbs * 4) + (fat * 9) ).toFixed(0);
+
+            const stats = {
+                calories, protein, carbohydrates: carbs, fat, sugar, fibers,
+                mealName: "Scan Result #" + (historyList.children.length + 1)
+            };
+
+            scanLine.style.display = "none";
+            statusText.innerText = "Scan Successful!";
+            scanBtn.disabled = false;
+            scanBtn.innerText = "Scan Next Meal";
+
+            updateUI(stats);
+            addToHistory(stats);
+        }, 2500);
+    }
+
+    function updateUI(data) {
+        // Helper to set bar width and text
+        const updateElement = (id, val, max, unit) => {
+            const pct = Math.min((val / max) * 100, 100);
+            document.getElementById(`${id}-bar`).style.width = pct + "%";
+            document.getElementById(`${id}-val`).innerText = val + unit;
+        };
+
+        updateElement('cal', data.calories, 1000, " kcal");
+        updateElement('p', data.protein, 50, "g");
+        updateElement('c', data.carbohydrates, 100, "g");
+        updateElement('f', data.fat, 40, "g");
+        updateElement('s', data.sugar, 30, "g");
+        updateElement('fib', data.fibers, 15, "g");
+    }
+
+    function addToHistory(data) {
+        const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const card = document.createElement('div');
+        card.className = 'history-card';
+        card.innerHTML = `
+            <div>
+                <strong style="display:block;">${data.mealName}</strong>
+                <small style="opacity:0.8;">${time} • ${data.calories} kcal</small>
+            </div>
+            <div style="text-align:right; font-size: 0.8rem;">
+                <span style="color:#CBE896; font-weight:700;">${data.protein}g P</span> • 
+                <span style="color:#0ACDFF; font-weight:700;">${data.carbohydrates}g C</span><br>
+                <span style="color:#FFD700; font-weight:700;">${data.fat}g F</span>
+            </div>
+        `;
+        historyList.prepend(card);
+    }
 </script>
-
-
-
 
 </body>
 </html>
