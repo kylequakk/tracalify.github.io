@@ -87,9 +87,16 @@
     const statusText = document.getElementById('status-text');
     const historyList = document.getElementById('history-list');
 
-    scanBtn.addEventListener('click', () => cameraInput.click());
+    scanBtn.addEventListener('click', () => {
+        console.log("Button was clicked");
+        cameraInput.click());
+    }
+
     cameraInput.addEventListener('change', function() {
-        if (this.files[0]) runScan(this.files[0]);
+        if (this.files[0]) {
+            console.log("Image selected");
+            runScan(this.files[0]);
+        }
     });
 
     async function runRealScan(file) {
