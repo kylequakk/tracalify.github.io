@@ -1,9 +1,8 @@
-async function uploadAndAnalyze() {
-    const fileInput = document.getElementById('myImageInput'); // Your <input type="file"> ID
-    const statusDiv = document.getElementById('status');
+document.getElementById('scanBtn').addEventListener('click', async () => {
+    const fileInput = document.getElementById('cameraInput');
 
-    if (!fileInput.files[0]) {
-        alert("Please select an image first!");
+    if (fileInput.files.length === 0) {
+        alert("Please take a photo or select an image first!");
         return;
     }
 
@@ -11,23 +10,22 @@ async function uploadAndAnalyze() {
     formData.append("file", fileInput.files[0]);
 
     try {
-        statusDiv.innerText = "Processing...";
+        console.log("Sending meal to backend...");
 
         const response = await fetch("/api/meals/analyze", {
             method: "POST",
             body: formData
         });
 
-        if (!response.ok) {
-            throw new Error("Server error");
-        }
+        if (!response.ok) throw new Error("Backend communication failed");
 
-        const mealData = await response.json();
+        const savedMeal = await response.json();
 
-        displayResults(mealData);
+        console.log("Success! Saved Meal:", savedMeal);
+        alert(`Analyzed ${savedMeal.name}: ${savedMeal.calories} calories found!`);
 
     } catch (error) {
-        console.error("Upload failed:", error);
-        statusDiv.innerText = "Error: " + error.message;
+        console.error("Error:", error);
+        alert("Something went wrong communicating with the server.");
     }
-}
+});
