@@ -1,150 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trackify</title>
-  <style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trackify | Smart Nutrition</title>
+    <style>
+        /* --- 1. THE IMPACT ANIMATION --- */
+        #loader-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 9999; background: #034732;
+            transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+        }
 
-    .home-layout {
-      display: flex;
-      width: 100%;
-      margin-top: 6rem; /* space below header */
-      min-height: 70vh; /* makes it feel like a hero section */
-    }
+        .bar { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform: translateX(-100%); }
+        .blue-bar { background: #0ACDFF; z-index: 10; animation: slamToMiddle 0.4s cubic-bezier(0.175, 0.885, 0.32, 1) forwards; }
+        .green-bar { background: #CBE896; z-index: 11; animation: slamToMiddle 0.4s 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.2) forwards; }
 
-    .home-left {
-      flex: 1.2; /* left side is bigger */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+        @keyframes slamToMiddle { to { transform: translateX(0); } }
 
-    .home-right {
-      flex: 1; /* right side shows background */
-    }
+        .logo-wrap {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            display: flex; align-items: center; z-index: 10000;
+            font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 80px; color: #FFFFFF;
+            pointer-events: none;
+        }
 
-    .home-box {
-      width: 80%;
-      background: #034732;
-      padding: 2.5rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-      color: #F3EFE6;
-      text-align: center;
-    }
+        .letter-t {
+            display: inline-block; opacity: 0;
+            animation: tImpact 0.3s 1.1s cubic-bezier(0.17, 0.89, 0.32, 1.4) forwards;
+        }
 
+        .brand-rest {
+            display: inline-block; max-width: 0; overflow: hidden; white-space: nowrap; opacity: 0;
+            animation: expandName 0.8s 1.6s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+        }
 
+        @keyframes tImpact {
+            0% { opacity: 0; transform: scale(6); filter: blur(10px); }
+            100% { opacity: 1; transform: scale(1); filter: blur(0); }
+        }
 
+        @keyframes expandName {
+            0% { max-width: 0; opacity: 0; }
+            100% { max-width: 500px; opacity: 1; }
+        }
 
-    .signin-btn { background: white; color: #0ACDFF; padding: 8px 16px; border-radius: 6px; font-weight: 600; border: none; cursor: pointer; transition: background 0.3s ease; } .signin-btn:hover { background: #e0f7ff; }
-    body {
+        .loader-hidden { transform: translateY(-100%) !important; }
 
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background-image: url("https://image2url.com/r2/default/images/1770433351759-72c97944-077b-4c2d-b88c-ad6e0ab6c4f4.png");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+        /* --- 2. CENTERED LAYOUT & STYLE --- */
+        body {
+            font-family: 'Poppins', sans-serif; margin: 0; padding: 0; height: 100vh;
+            display: flex; flex-direction: column;
+            background-image: url("https://image2url.com/r2/default/images/1770433351759-72c97944-077b-4c2d-b88c-ad6e0ab6c4f4.png");
+            background-size: cover; background-position: center; background-attachment: fixed;
+            overflow: hidden; /* Keeps it tight and focused */
+        }
 
-    }
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+        header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background-color: #0ACDFF; color: white; padding: 1rem 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
 
-      z-index: 1000;
+        .home-layout {
+            display: flex;
+            flex-grow: 1;
+            justify-content: center; /* Center horizontally */
+            align-items: center;     /* Center vertically */
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
-      background-color: #0ACDFF;
-      color: white;
-      padding: 1rem 2rem;
+        .home-box {
+            width: 100%; max-width: 480px;
+            background: rgba(3, 71, 50, 0.96);
+            padding: 4rem 3rem; border-radius: 32px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            color: white; text-align: center;
+            backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1);
+            animation: boxFadeUp 0.8s 3.2s ease-out both;
+        }
 
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+        @keyframes boxFadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-      transform: translateY(0);
-      transition: transform 0.35s ease;
-    }
+        .get-started-btn {
+            background: #CBE896; color: #034732; padding: 20px 50px;
+            border-radius: 16px; font-weight: 800; border: none;
+            cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 1.2rem; text-decoration: none; display: inline-block;
+            margin-top: 20px; font-family: 'Poppins';
+        }
 
+        .get-started-btn:hover {
+            background: #0ACDFF; color: white; transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(10, 205, 255, 0.4);
+        }
 
-
-
-
-
-
-
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: #CBE896;
-      color: white;
-      margin-top: 2rem;
-    }
-  </style>
+        footer {
+            text-align: center; padding: 1.5rem; background: #CBE896;
+            color: #034732; font-weight: 700; width: 100%;
+        }
+    </style>
 </head>
 <body>
+
+<div id="loader-overlay">
+    <div class="bar blue-bar"></div>
+    <div class="bar green-bar"></div>
+    <div class="logo-wrap">
+        <span class="letter-t">T</span><span class="brand-rest">rackify</span>
+    </div>
+</div>
+
 <header>
-  <h1 style="margin: 0;">Trackify</h1>
-  <button class="signin-btn">Sign In</button>
+    <h1 style="margin: 0; font-weight: 800; letter-spacing: -1px;">Trackify</h1>
+    <button style="background: white; color: #0ACDFF; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 700; cursor: pointer;">Sign In</button>
 </header>
 
 <main class="home-layout">
-  <div class="home-left">
     <div class="home-box">
-      <h2>Welcome to Trackify</h2>
-      <p>Your smart companion for effortless calorie tracking.</p>
-
-      <a href="./pages/homePage.html">
-        <button class="signin-btn">Get Started</button>
-      </a>
-
+        <h2 style="font-size: 2.6rem; margin-top: 0; margin-bottom: 1.2rem; line-height: 1.1;">Welcome to Trackify</h2>
+        <p style="font-size: 1.2rem; opacity: 0.85; margin-bottom: 2.8rem; font-weight: 300;">
+            Effortless calorie tracking and real-time nutrition insights at your fingertips.
+        </p>
+        <a href="./pages/homePage.html">
+            <button class="get-started-btn">Get Started</button>
+        </a>
     </div>
-  </div>
-
-  <div class="home-right"></div>
 </main>
 
-<footer>
+<footer><p>© 2026 Trackify AI — Precise Nutrition</p></footer>
 
-  <p>© 2026 Trackify</p>
-</footer>
 <script>
-  let lastScroll = 0;
-  const header = document.querySelector("header");
-  const hideAfter = 10; // how far user scrolls before header hides
-
-  window.addEventListener("scroll", () => {
-    const currentScroll = window.pageYOffset;
-
-    // Always show header at the very top
-    if (currentScroll < hideAfter) {
-      header.style.transform = "translateY(0)";
-      lastScroll = currentScroll;
-      return;
-    }
-
-    if (currentScroll > lastScroll) {
-      // Scrolling down → hide header
-      header.style.transform = "translateY(-100%)";
-    } else {
-      // Scrolling up → show header
-      header.style.transform = "translateY(0)";
-    }
-
-    lastScroll = currentScroll;
-  });
+    window.addEventListener("load", () => {
+        setTimeout(() => {
+            document.getElementById("loader-overlay").classList.add("loader-hidden");
+        }, 3500);
+    });
 </script>
+
 </body>
 </html>
