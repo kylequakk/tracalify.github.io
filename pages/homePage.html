@@ -48,7 +48,7 @@
 
         .status-item { margin-bottom: 1rem; text-align: left; }
         .progress-bg { background: rgba(255,255,255,0.2); height: 8px; border-radius: 10px; margin-top: 5px; }
-        .progress-fill { height: 100%; width: 0%; transition: width 0.8s ease; border-radius: 10px; }
+        .progress-fill { height: 100%; width: 0%; transition: width 0.8s ease, background-color 0.5s ease; border-radius: 10px; }
 
         .total-card { background: #0ACDFF; padding: 1.5rem; border-radius: 24px; margin: 1.5rem auto; max-width: 420px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .history-card { background: rgba(3, 71, 50, 0.8); padding: 1rem; border-radius: 16px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #CBE896; }
@@ -90,7 +90,15 @@
 
 <div class="total-card">
     <span style="font-size: 0.8rem; opacity: 0.8; font-weight: 600;">DAILY TOTAL</span>
-    <div style="font-size: 2rem; font-weight: 900;" id="session-total">0 kcal</div>
+    <div style="font-size: 2rem; font-weight: 900; margin-bottom: 8px;" id="session-total">0 kcal</div>
+    
+    <div class="progress-bg" style="background: rgba(0,0,0,0.2); height: 12px; margin-bottom: 4px;">
+        <div id="goal-bar" class="progress-fill" style="background: #CBE896; width: 0%;"></div>
+    </div>
+    <div style="display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: 600; opacity: 0.9;">
+        <span>0</span>
+        <span>2000 kcal goal</span>
+    </div>
 </div>
 
 <div style="max-width: 450px; margin: 0 auto; padding: 0 1rem;">
@@ -193,6 +201,9 @@
         const history = JSON.parse(localStorage.getItem('mealHistory') || "[]");
         historyList.innerHTML = '';
         let total = 0;
+        const GOAL = 2000;
+        const goalBar = document.getElementById('goal-bar');
+
         history.forEach(item => {
             total += item.cal;
             historyList.innerHTML += `
@@ -201,7 +212,18 @@
                     <span style="color:#CBE896; font-weight:800;">${item.cal} kcal</span>
                 </div>`;
         });
+        
         document.getElementById('session-total').innerText = total + " kcal";
+
+        // --- METER LOGIC ---
+        if (total > GOAL) {
+            goalBar.style.width = "100%";
+            goalBar.style.background = "#FF4D4D"; // Red
+        } else {
+            const percentage = (total / GOAL) * 100;
+            goalBar.style.width = percentage + "%";
+            goalBar.style.background = "#CBE896"; // Green
+        }
     }
 
     function clearHistory() {
