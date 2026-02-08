@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+x<!DOCTYPE html>
 <html lang="en">
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
@@ -177,10 +177,7 @@
             const mealData = JSON.parse(aiText);
 
             processResult(mealData);
-        } catch (err) {
-            console.error(err);
-            setLoading(false);
-            statusText.innerText = "Error: Couldn't identify meal.";
+        
         }
     });
 
