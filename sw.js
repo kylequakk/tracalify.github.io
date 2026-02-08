@@ -1,9 +1,9 @@
 const CACHE_NAME = 'tracalify-v1';
 const ASSETS = [
-  '/',                // The root
-  '/index.html',      // Explicit index
-  '/pages/homePage.html', 
-  '/manifest.json',   // Highly recommended to cache this!
+  './',                   // The current directory
+  'index.html',           // Local file
+  'pages/homePage.html',  // Local folder
+  'manifest.json',        // Local file
   'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap'
 ];
 
