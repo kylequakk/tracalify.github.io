@@ -102,4 +102,6 @@ It all exists, and is on a seperate repo, but we just couldn't get all the piece
 
 ```
 Website URL: https://kylequakk.github.io/tracalify.github.io/
+NOTE: We had to update the API key to allow frontend handling of our program. Due to the limitations of Google Gemini's API free use.
+We will take full responsibility for our actions.
 ```
