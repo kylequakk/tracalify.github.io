@@ -56,7 +56,7 @@ Using cache, user data will be stored securely on device.
 IntelliJ – Java IDE used for backend development.
 Github – Used for pushing and pulling so that the code is synchronized between team members.
 Gemini – Used for the application to identify food items and the associated calorie amount. (API)
-Copilot – Used for advise on using the other tools to its full potential.
+Copilot – Used for advise on using the other tools to its full potential. Also used for AI image generation.
 Render - Used to connect our front and back end code over a localhost.
                                                            
 ```
