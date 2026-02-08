@@ -13,7 +13,7 @@
     <meta name="theme-color" content="#0ACDFF">
     <title>Trackify - Smart Meal Scanner</title>
     <style>
-        /* --- CORE STYLES (UNCHANGED) --- */
+        /* --- CORE STYLES --- */
         #loader-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: 9999; background: #CBE896;
@@ -125,8 +125,9 @@
 <footer>© 2026 Trackify — Smart Nutrition</footer>
 
 <script>
-    const API_KEY = "AIzaSyC-QeGWJWf4b6fwI2lbq0huDJbs9EFrwGk";
-    const MODEL_ID = "gemini-1.5-flash";
+    // --- API KEYS PRESERVED ---
+    const API_KEY = "AIzaSyC-QeGWJWf4b6fwI2lbq0huDJbs9EFrwGk"; 
+    const MODEL_ID = "gemini-2.5-flash"; 
 
     const scanBtn = document.getElementById('scanBtn');
     const cameraInput = document.getElementById('cameraInput');
@@ -191,12 +192,10 @@
 
     function processResult(data) {
         setLoading(false);
-        // Save stats and history
         localStorage.setItem('lastStats', JSON.stringify(data));
         const history = JSON.parse(localStorage.getItem('mealHistory') || "[]");
         history.unshift({ name: data.name, cal: data.calories, time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) });
         localStorage.setItem('mealHistory', JSON.stringify(history.slice(0, 25)));
-
         renderData();
     }
 
@@ -204,7 +203,6 @@
         const stats = JSON.parse(localStorage.getItem('lastStats') || "{}");
         const history = JSON.parse(localStorage.getItem('mealHistory') || "[]");
 
-        // Render 6 Bars
         updateBar('cal', stats.calories, 800, ' kcal');
         updateBar('p', stats.protein, 40, 'g');
         updateBar('c', stats.carbs, 80, 'g');
@@ -212,7 +210,6 @@
         updateBar('fib', stats.fiber, 15, 'g');
         updateBar('s', stats.sugar, 20, 'g');
 
-        // History List & Circle
         historyList.innerHTML = '';
         let total = 0;
         history.forEach(item => {
