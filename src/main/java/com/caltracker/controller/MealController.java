@@ -1,8 +1,8 @@
-package com.example.demo.controller;
+package com.caltracker.controller;
 
-import com.example.demo.model.Meal;
-import com.example.demo.repository.MealRepository;
-import com.example.demo.service.NutritionService;
+import com.caltracker.model.Meal;
+import com.caltracker.repository.MealRepository;
+import com.caltracker.service.NutritionService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
