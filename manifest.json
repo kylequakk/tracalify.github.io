@@ -1,7 +1,7 @@
 {
   "name": "Tracalify Smart Nutrition",
   "short_name": "Tracalify",
-  "start_url": "tracalify.github.io/index.html",
+  "start_url": "/index.html",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#034732",
