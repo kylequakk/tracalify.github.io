@@ -1,6 +1,6 @@
 const CACHE_NAME = 'tracalify-v1';
 const ASSETS = [
-  'tracalify.github.io/',
+  '/',
   'tracalify.github.io/index.html',
   'tracalify.github.io/pages/homePage.html',
   'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap'
