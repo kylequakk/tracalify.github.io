@@ -47,17 +47,17 @@ Using a PostGre SQL database, user data will be stored securely on the cloud.
 ```
 
 ```
-▗▄▄▄▖▄▄▄   ▄▄▄  █  ▄▄▄     ▗▖ ▗▖   ■  ▄ █ ▄ ▄▄▄▄▄ ▗▞▀▚▖   ▐▌
-  █ █   █ █   █ █ ▀▄▄      ▐▌ ▐▌▗▄▟▙▄▖▄ █ ▄  ▄▄▄▀ ▐▛▀▀▘   ▐▌
-  █ ▀▄▄▄▀ ▀▄▄▄▀ █ ▄▄▄▀     ▐▌ ▐▌  ▐▌  █ █ █ █▄▄▄▄ ▝▚▄▄▖▗▞▀▜▌
-  █             █          ▝▚▄▞▘  ▐▌  █ █ █            ▝▚▄▟▌
-                                  ▐▌                        
+ ____  __    __   __    ____    _  _  ____  ____  ____ 
+(_  _)/  \  /  \ (  )  / ___)  / )( \/ ___)(  __)(    \
+  )( (  O )(  O )/ (_/\\___ \  ) \/ (\___ \ ) _)  ) D (
+ (__) \__/  \__/ \____/(____/  \____/(____/(____)(____/
 ```
 ```
 IntelliJ – Java IDE used for backend development.
 Github – Used for pushing and pulling so that the code is synchronized between team members.
 Gemini – Used for the application to identify food items and the associated calorie amount.
-Copilot – Used for advise on using the other tools to its full potential.                                                            
+Copilot – Used for advise on using the other tools to its full potential.
+Render - Used to connect our front and back end code over a localhost.                                                           
 ```
 ```
  ____  ____  _  _  ____  __     __  ____  _  _  ____  __ _  ____  __   __      ____  ____   __    ___  ____  ____  ____ 
@@ -78,5 +78,9 @@ Next, the issue of saving user data surfaced. Everyone was unfamiliar with the p
 
 After an hour, a major breakthrough was made with the frontend. The GUI was displayed using html, and it was made through entirely through AI. Through a randomizer, a color scheme was generated based on a color wheel and exported as hexadecimal. Gree was the primary color of choice due to its association with “healthy foods.”
 ```
+
+Day 2: Saturday, February 7th
+
+Our team decided to begin the day by wrapping up our frontend design, and cracking down on what we were actually going to try and accomplish. Most of the time was spent trying to use a controller to connect our front and back ends, but we decided to land on Render for hosting a free backend local host. We didn't know if we wanted to add sign in mechanics, but after a few hours of stuggling we decided that was a little bit over our heads. 
 
 Website URL: https://hatsunemiku-lover.github.io/
