@@ -79,10 +79,22 @@ Next, the issue of saving user data surfaced. Everyone was unfamiliar with the p
 After an hour, a major breakthrough was made with the frontend. The GUI was displayed using html, and it was made through entirely through AI. Through a randomizer, a color scheme was generated based on a color wheel and exported as hexadecimal. Gree was the primary color of choice due to its association with “healthy foods.”
 ```
 
+```
 Day 2: Saturday, February 7th
 
 Our team decided to begin the day by wrapping up our frontend design, and cracking down on what we were actually going to try and accomplish. Most of the time was spent trying to use a controller to connect our front and back ends, but we decided to land on Render for hosting a free backend local host. We didn't know if we wanted to add sign in mechanics, but after a few hours of stuggling we decided that was a little bit over our heads. 
 
 As we approached the end of the day, we had a rough time implementing the back end. It all exists, and is on a seperate repo, but we just couldn't get all the pieces to fit together. We did what we could though, and we got the application to work with a fancy front-end and a working application for both iPhone and Android!
+```
 
+```
+ _______ _     _ _______       _____   ______  _____  _____ _______ _______ _______   /
+    |    |_____| |______      |_____] |_____/ |     |   |   |______ |          |     / 
+    |    |     | |______      |       |    \_ |_____| __|   |______ |_____     |    .  
+                                                                                       
+
+```
+
+```
 Website URL: https://kylequakk.github.io/tracalify.github.io/
+```
