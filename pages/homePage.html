@@ -152,7 +152,7 @@
         formData.append("file", e.target.files[0]);
 
         try {
-            const res = await fetch("http://localhost:8080/api/meals/analyze", { method: "POST", body: formData });
+            const res = await fetch("https://trackify-backend-0b47.onrender.com", { method: "POST", body: formData });
             const data = await res.json();
             processResult(data);
         } catch (err) {
