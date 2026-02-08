@@ -1,6 +1,6 @@
 {
-  "name": "Trackify Smart Nutrition",
-  "short_name": "Trackify",
+  "name": "Tracalify Smart Nutrition",
+  "short_name": "Tracalify",
   "start_url": "/index.html",
   "display": "standalone",
   "orientation": "portrait",
