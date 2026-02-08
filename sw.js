@@ -1,4 +1,4 @@
-const CACHE_NAME = 'Tracalify-v2';
+const CACHE_NAME = 'tracalify-v1';
 const ASSETS = [
   '/',
   '/index.html',
